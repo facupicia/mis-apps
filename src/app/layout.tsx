@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { BackgroundEffects } from "@/components/BackgroundEffects";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +21,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="min-h-screen bg-white font-sans antialiased">
+      <body className={`${inter.className} antialiased`}>
+        <BackgroundEffects />
         {children}
       </body>
     </html>

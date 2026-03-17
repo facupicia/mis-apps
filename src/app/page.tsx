@@ -1,75 +1,90 @@
+'use client' // Lo necesitamos para los efectos de fondo si el canvas tiene refs
+
 import { ProjectCard } from "@/components/ProjectCard";
 import { ContactSection } from "@/components/ContactSection";
+import { BackgroundEffects } from "@/components/BackgroundEffects"; // Asegúrate de exportarlo así
 import { supabase } from "@/lib/supabase";
 import { Project } from "@/types/project";
+import { useEffect, useState } from "react";
 
-async function getProjects(): Promise<Project[]> {
-  const { data, error } = await supabase
-    .from("projects")
-    .select("*")
-    .order("order_index", { ascending: true });
+export default function Home() {
+  const [projects, setProjects] = useState<Project[]>([]);
 
-  if (error) {
-    console.error("Error fetching projects:", error);
-    return [];
-  }
+  useEffect(() => {
+    async function fetchProjects() {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .order("order_index", { ascending: true });
 
-  return data || [];
-}
-
-export default async function Home() {
-  const projects = await getProjects();
+      if (!error) setProjects(data || []);
+    }
+    fetchProjects();
+  }, []);
 
   return (
-    <main className="min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-xl">
+    <main className="relative min-h-screen selection:bg-[#ff5e62]/30">
+      {/* 2. Header Estilo Glassmorphism */}
+      <header className="sticky top-0 z-50 border-b border-white/[0.05] bg-[#0a0a0a]/60 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
-          <span className="text-sm font-medium tracking-tight text-neutral-100">
-            Portfolio
-          </span>
-          <nav className="flex items-center gap-6">
+          <nav className="flex items-center gap-8">
+            <a
+              href="#proyectos"
+              className="text-xs uppercase tracking-widest text-neutral-400 transition-colors hover:text-white"
+            >
+              Proyectos
+            </a>
             <a
               href="#contacto"
-              className="text-sm text-neutral-400 transition-colors hover:text-neutral-100"
+              className="group relative text-xs uppercase tracking-widest text-neutral-400 transition-colors hover:text-white"
             >
               Contacto
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-[#ffbd4f] to-[#ff5e62] transition-all group-hover:w-full" />
             </a>
           </nav>
         </div>
       </header>
 
-      {/* Projects Grid */}
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
-        <div className="mb-12">
-          <h1 className="text-3xl font-medium tracking-tight text-neutral-100 sm:text-4xl">
+      {/* 3. Hero / Projects Section */}
+      <section id="proyectos" className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-32">
+        <div className="mb-16 space-y-4">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-gradient">
             Proyectos
           </h1>
-          <p className="mt-4 max-w-xl text-neutral-400">
-            Una colección de proyectos en los que he trabajado. Cada uno representa un desafío único y una solución creativa.
+          <p className="max-w-2xl text-lg text-neutral-400 leading-relaxed font-light">
+            Una colección de proyectos donde el diseño y el código se encuentran para crear 
+            soluciones digitales <span className="text-neutral-200">excepcionales</span>.
           </p>
         </div>
 
         {projects.length > 0 ? (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-neutral-800 bg-neutral-900/50 py-24">
-            <p className="text-neutral-400">No hay proyectos</p>
-            <p className="mt-2 text-sm text-neutral-500">
-              Agregá proyectos a tu base de datos de Supabase para verlos aquí
-            </p>
+          <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm py-32 text-center">
+            <div className="h-12 w-12 rounded-full border border-neutral-800 flex items-center justify-center mb-4">
+              <span className="animate-pulse text-neutral-500">?</span>
+            </div>
+            <p className="text-neutral-400 font-medium">Buscando creaciones...</p>
+            <p className="mt-1 text-sm text-neutral-600">Conectando con Supabase</p>
           </div>
         )}
       </section>
 
-      {/* Contact Section */}
-      <div id="contacto">
+      {/* 4. Contact Section */}
+      <section id="contacto" className="relative">
         <ContactSection />
-      </div>
+      </section>
+
+      {/* Footer minimalista */}
+      <footer className="py-10 text-center border-t border-white/5">
+        <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-600">
+          © {new Date().getFullYear()} — Facundo Picia
+        </p>
+      </footer>
     </main>
   );
 }

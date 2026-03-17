@@ -4,23 +4,23 @@ import { Mail, Github, Linkedin, Twitter } from 'lucide-react'
 
 export function ContactSection() {
   return (
-    <section className="mt-32 border-t border-neutral-200 py-20">
+    <section className="mt-32 border-t border-neutral-800 py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col items-center text-center">
-          <h2 className="text-3xl font-medium tracking-tight text-neutral-900 sm:text-4xl">
-            Let's work together
+          <h2 className="text-3xl font-medium tracking-tight text-neutral-100 sm:text-4xl">
+            Trabajemos juntos
           </h2>
-          <p className="mt-4 max-w-md text-neutral-500">
-            Have a project in mind? I'd love to hear about it. Send me a message and let's create something amazing.
+          <p className="mt-4 max-w-md text-neutral-400">
+            ¿Tenés un proyecto en mente? Me encantaría escucharlo. Mandame un mensaje y creemos algo increíble.
           </p>
 
           {/* Contact Button */}
           <a
             href="mailto:hello@example.com"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-neutral-800 hover:scale-105"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-neutral-100 px-6 py-3 text-sm font-medium text-neutral-900 transition-all duration-300 hover:bg-white hover:scale-105"
           >
             <Mail className="h-4 w-4" />
-            Get in touch
+            Contactar
           </a>
 
           {/* Social Links */}
@@ -29,7 +29,7 @@ export function ContactSection() {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 transition-colors duration-300 hover:text-neutral-900"
+              className="text-neutral-500 transition-colors duration-300 hover:text-neutral-100"
               aria-label="GitHub"
             >
               <Github className="h-5 w-5" />
@@ -38,7 +38,7 @@ export function ContactSection() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 transition-colors duration-300 hover:text-neutral-900"
+              className="text-neutral-500 transition-colors duration-300 hover:text-neutral-100"
               aria-label="LinkedIn"
             >
               <Linkedin className="h-5 w-5" />
@@ -47,7 +47,7 @@ export function ContactSection() {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 transition-colors duration-300 hover:text-neutral-900"
+              className="text-neutral-500 transition-colors duration-300 hover:text-neutral-100"
               aria-label="Twitter"
             >
               <Twitter className="h-5 w-5" />
@@ -55,8 +55,8 @@ export function ContactSection() {
           </div>
 
           {/* Footer */}
-          <p className="mt-16 text-sm text-neutral-400">
-            © {new Date().getFullYear()} All rights reserved.
+          <p className="mt-16 text-sm text-neutral-600">
+            © {new Date().getFullYear()} Todos los derechos reservados.
           </p>
         </div>
       </div>
